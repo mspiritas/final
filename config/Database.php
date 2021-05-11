@@ -1,10 +1,10 @@
 <?php
     class Database {
         // DB Params
-        private $host = 'localhost';
-        private $db_name = 'quotesdb';
-        private $username = 'root';
-        private $password = '';
+        private $host = 'wcwimj6zu5aaddlj.cbetxkdyhwsb.us-east-1.rds.amazonaws.com';
+        private $db_name = 'kfwyssp7g9e5m7a3';
+        private $username = 'kaz87pblt3cydme5';
+        private $password = 'md1pcty90zi9nzky';
         private $conn;
 
         // DB Connection
