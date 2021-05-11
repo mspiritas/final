@@ -133,4 +133,27 @@
 
         return false;
         }
+
+        // Get categories
+        public function get_categories() {
+            global $db;
+            $query = 'SELECT * FROM categories ORDER by id';
+            $statement = $db->prepare($query);
+            $statement->execute();
+            $makes = $statement->fetchAll();
+            $statement->closeCursor();
+            return $categories;
+        }
+
+        public function get_quote_category() {
+            global $db;
+            $query = 'SELECT * FROM categories WHERE id = :categoryId';
+            $statement = $db->prepare($query);
+            $statement->bindValue(':categoryId', $categoryId);
+            $statement->execute();
+            $make = $statement->fetch();
+            $statement->closeCursor();
+            $category_name = $category['category'];
+            return $category_name;
+        }
 }

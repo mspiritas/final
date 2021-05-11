@@ -63,6 +63,34 @@
 
         }
 
+        /*
+        // Read single quote by authorId
+        public function read_single_by_authorId() {
+          // Create query
+          $query = 'SELECT quote
+                    FROM ' . $this->table . '
+                    LEFT JOIN
+                      authors a ON q.authorId = a.id
+                    WHERE a.id = ?
+                    LIMIT 0,1';
+    
+        // Prepare statement
+        $stmt = $this->conn->prepare($query);
+
+        // Bind ID
+        $stmt->bindParam(1, $this->id);
+          
+        // Execute query
+        $stmt->execute();
+          
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
+          
+        // Set properties
+
+        $this->quote = $row['quote'];
+
+        }*/
+
       // Create category
       public function create() {
       // Create query
@@ -77,6 +105,8 @@
 
       // Clean data
       $this->quote = htmlspecialchars(strip_tags($this->quote));
+      $this->authorId = htmlspecialchars(strip_tags($this->authorId));
+      $this->categoryId = htmlspecialchars(strip_tags($this->categoryId));
       
       // Bind data
       $stmt->bindParam(':quote', $this->quote);
@@ -154,4 +184,20 @@
 
             return false;
         }
+
+        function get_quotes_by_id() {
+          global $db;
+          $query = 'SELECT q.quote, a.author, c.category
+                    FROM quotes q
+                    LEFT JOIN authors a
+                    ON q.authorId = a.id
+                    LEFT JOIN categories c
+                    ON q.categoryId = c.id
+                    ORDER BY id';
+          $statement = $db->prepare($query);
+          $statement->execute();
+          $quotes = $statement->fetchAll();
+          $statement->closeCursor();
+          return $quotes;
+      }
     }

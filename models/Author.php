@@ -133,4 +133,27 @@
 
         return false;
         }
+
+    // Get authors
+    public function get_authors() {
+        global $db;
+        $query = 'SELECT * FROM authors ORDER by id';
+        $statement = $db->prepare($query);
+        $statement->execute();
+        $makes = $statement->fetchAll();
+        $statement->closeCursor();
+        return $authors;
+    }
+
+    public function get_quote_author() {
+        global $db;
+        $query = 'SELECT * FROM authors WHERE id = :authorId';
+        $statement = $db->prepare($query);
+        $statement->bindValue(':authorId', $authorId);
+        $statement->execute();
+        $make = $statement->fetch();
+        $statement->closeCursor();
+        $author_name = $author['author'];
+        return $author_name;
+    }
 }
